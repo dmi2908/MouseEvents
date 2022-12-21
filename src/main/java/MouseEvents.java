@@ -34,6 +34,11 @@ public class MouseEvents extends JFrame{
                     pane.repaint();
                 }
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                pane.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
         });
         setPreferredSize(new Dimension(width, height));
         setContentPane(pane);
