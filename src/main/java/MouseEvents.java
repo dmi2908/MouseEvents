@@ -4,6 +4,7 @@ import java.awt.event.*;
 
 public class MouseEvents extends JFrame{
     static int width = 800, height = 600;
+    static int x = 0, y = 0;
     public MouseEvents() {
         super("MouseEvents");
         createGUI();
@@ -19,11 +20,19 @@ public class MouseEvents extends JFrame{
         pane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JLabel lab = new JLabel("X: " + e.getX() + ", Y: " + e.getY());
-                lab.setBackground(Color.black);
-                lab.setBounds(e.getX(),e.getY(),120,20);
-                lab.setVisible(true);
-                pane.add(lab);
+                JLabel lab = new JLabel();
+                if (e.getButton() != 3) {
+                    lab.setBackground(Color.black);
+                    x = e.getX();
+                    y = e.getY();
+                    lab.setText("X: " + x + ", Y: " + y);
+                    lab.setBounds(x, y,120,20);
+                    lab.setVisible(true);
+                    pane.add(lab);
+                } else {
+                    pane.remove(e.getComponent().getComponentAt(e.getPoint()));
+                    pane.repaint();
+                }
             }
         });
         setPreferredSize(new Dimension(width, height));
